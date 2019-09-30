@@ -1,5 +1,5 @@
 module.exports = function multiply(first, second) {
-  let firstArray = first.split("");   //преобразуем в массив
+  let firstArray = first.split("");   //преобразуем строки в массивы
   let secondArray = second.split("");
   let multiplyArray = [];              //массив под требуемое число
 
@@ -14,21 +14,21 @@ module.exports = function multiply(first, second) {
       };
     };
   };
-  multiplyArray.unshift("0");
-  for ( let z = multiplyArray.length - 1; z >= 0; z--) {
+  multiplyArray.unshift("0"); // добавляем в начало массива 0, так надо! иначе мы потеряем первую цифру на выходе
+  for ( let z = multiplyArray.length - 1; z >= 0; z--) {  // проходимся по массиву и и разделяем каждый элемент на десятки и еденицы
     let unit = multiplyArray[z] % 10;
     let tenner =  Math.floor(multiplyArray[z] / 10);
-    multiplyArray[z] =unit;
+    multiplyArray[z] =unit; // сохраняем в массив еденицы
     
-    if (multiplyArray[z-1]) {
+    if (multiplyArray[z-1]) { // при присутствии десяток добавляем их к предыдущему элементу. Здесь как раз и нужен дополнительный 0.
       multiplyArray[z-1] = multiplyArray[z-1] + tenner;
     } else if (tenner != 0) {
       multiplyArray[z-1] = tenner;
     };  
   };
-  if (multiplyArray[0] == "0") {
+  if (multiplyArray[0] == "0") { // удаляем первый ноль там где он был не нужен
     multiplyArray.shift();
   };
-  return multiplyArray.join("");
+  return multiplyArray.join(""); // собираем в строку и возвращаем
 };
 
